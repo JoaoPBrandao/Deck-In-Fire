@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 3721670165243416088}
-  _speed: 0.3
+  _speed: 0.1
+  _extinguisherPosition: {fileID: 1220197799}
 --- !u!1 &3721670165562293977
 GameObject:
   m_ObjectHideFlags: 0
