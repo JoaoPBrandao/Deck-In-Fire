@@ -7,14 +7,18 @@ using UnityEngine.Events;
 public class FireObject : MonoBehaviour
 {
     [SerializeField] private SO_FireDefinition _fireDefinition;
-    [SerializeField] private UnityEvent _OnSetOnFire, _OnExtinguish, _OnDestroyed;
+
+    public SO_FireDefinition FireDefinition => _fireDefinition;
+
+    [SerializeField] public UnityEvent _OnSetOnFire, _OnExtinguish, _OnDestroyed;
     private bool _onFire;
     private bool _destroyed;
     private float _remainingTime;
 
     private void Start()
     {
-        SetOnFire();
+        GameManager.Instance.AddFireObject(this);
+        enabled = false;
     }
 
     public void Extinguish(SO_ExtinguisherDefinition extinguisher)
@@ -45,6 +49,8 @@ public class FireObject : MonoBehaviour
         _remainingTime = 10;
         _onFire = true;
         _OnSetOnFire.Invoke();
+        enabled = true;
+        GameManager.Instance.RemoveFireObject(this);
     }
 
     private void DestroyFireObject()
@@ -61,6 +67,7 @@ public class FireObject : MonoBehaviour
         _onFire = false;
         enabled = false;
         _OnExtinguish.Invoke();
+        GameManager.Instance.AddFireObject(this);
     }
     
 }

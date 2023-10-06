@@ -9,13 +9,15 @@ public class PlayerCharacter : MonoBehaviour
 {
     [SerializeField] private CharacterController _controller;
     [SerializeField] private float _speed = 1;
+    [SerializeField] private float _extinguisherRadius = 1;
+    [SerializeField] private float _extinguisherRange = 3;
     [SerializeField] private MeshFilter _extinguisherPosition;
+    [SerializeField] private GameObject _extinguisherTarget;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
     private Camera _camera;
     private Plane _mousePlane;
     private IInteractable _interactionTarget;
-    private Vector3 _mousePosition;
     public UnityEvent<ExtinguisherInstance> OnExtinguisherChanged;
     public UnityEvent OnBeginInteract, OnEndInteract;
 
@@ -51,8 +53,18 @@ public class PlayerCharacter : MonoBehaviour
         if (_mousePlane.Raycast(ray, out var distance))
         {
             var point = ray.GetPoint(distance);
-            transform.forward = (point - transform.position).normalized;
-            _mousePosition = point;
+            var dir = (point - transform.position).normalized;
+            transform.forward = dir;
+            var mouseDistance = Mathf.Min((point - transform.position).magnitude, _extinguisherRange);
+            if (Physics.Raycast(transform.position, dir, out var hit, mouseDistance, LayerMask.GetMask("Wall")))
+            {
+                _extinguisherTarget.transform.position = hit.point;
+            }
+            else
+            {
+                _extinguisherTarget.transform.position = transform.position + (dir * mouseDistance);
+            }
+            
         }
     }
 
@@ -66,7 +78,7 @@ public class PlayerCharacter : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && HasExtinguisher)
         {
             _currentExtinguisher.RemainingUses--;
-            var hits = Physics.OverlapSphere(_mousePosition, 2, LayerMask.GetMask("FireObject"));
+            var hits = Physics.OverlapSphere(_extinguisherTarget.transform.position, _extinguisherRadius, LayerMask.GetMask("FireObject"));
             foreach (var target in hits)
             {
                 if (target.TryGetComponent<FireObject>(out var fireObject))
@@ -119,6 +131,7 @@ public class PlayerCharacter : MonoBehaviour
     private void UpdateModel()
     {
         _extinguisherPosition.gameObject.SetActive(_currentExtinguisher != null);
+        _extinguisherTarget.SetActive(_currentExtinguisher != null);
         if (_currentExtinguisher != null)
         {
             _extinguisherPosition.mesh = _currentExtinguisher.Definition.Model;
