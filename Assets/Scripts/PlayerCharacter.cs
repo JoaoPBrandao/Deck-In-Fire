@@ -11,7 +11,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private float _speed = 1;
     [SerializeField] private float _extinguisherRadius = 1;
     [SerializeField] private float _extinguisherRange = 3;
-    [SerializeField] private MeshFilter _extinguisherPosition;
+    [SerializeField] private MeshRenderer _extinguisherPosition;
     [SerializeField] private GameObject _extinguisherTarget;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
@@ -134,7 +134,7 @@ public class PlayerCharacter : MonoBehaviour
         _extinguisherTarget.SetActive(_currentExtinguisher != null);
         if (_currentExtinguisher != null)
         {
-            _extinguisherPosition.mesh = _currentExtinguisher.Definition.Model;
+            _extinguisherPosition.material = _currentExtinguisher.Definition.Material;
         }
     }
 }

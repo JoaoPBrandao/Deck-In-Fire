@@ -6,7 +6,7 @@ using UnityEngine;
 public class SO_ExtinguisherDefinition : ScriptableObject
 {
     public int Uses;
-    public Mesh Model;
+    public Material Material;
     public Sprite Icon;
     public string Name;
     public string Description;

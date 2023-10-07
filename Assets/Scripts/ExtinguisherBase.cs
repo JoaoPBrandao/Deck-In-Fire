@@ -6,7 +6,7 @@ using UnityEngine;
 public class ExtinguisherBase : MonoBehaviour, IInteractable
 {
     [SerializeField] private SO_ExtinguisherDefinition _initialExtinguisher;
-    [SerializeField] private MeshFilter _extinguisherPosition;
+    [SerializeField] private MeshRenderer _extinguisherPosition;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
     
@@ -43,7 +43,7 @@ public class ExtinguisherBase : MonoBehaviour, IInteractable
         _extinguisherPosition.gameObject.SetActive(_currentExtinguisher != null);
         if (_currentExtinguisher != null)
         {
-            _extinguisherPosition.mesh = _currentExtinguisher.Definition.Model;
+            _extinguisherPosition.material = _currentExtinguisher.Definition.Material;
         }
     }
 }
