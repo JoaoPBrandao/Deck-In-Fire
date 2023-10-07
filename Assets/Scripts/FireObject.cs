@@ -46,7 +46,7 @@ public class FireObject : MonoBehaviour
 
     public void SetOnFire()
     {
-        _remainingTime = 10;
+        _remainingTime = 20;
         _onFire = true;
         _OnSetOnFire.Invoke();
         enabled = true;

@@ -7,6 +7,7 @@ public class ExtinguisherBase : MonoBehaviour, IInteractable
 {
     [SerializeField] private SO_ExtinguisherDefinition _initialExtinguisher;
     [SerializeField] private MeshRenderer _extinguisherPosition;
+    [SerializeField] private SpriteRenderer _typeSprite;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
     
@@ -41,9 +42,11 @@ public class ExtinguisherBase : MonoBehaviour, IInteractable
     private void UpdateModel()
     {
         _extinguisherPosition.gameObject.SetActive(_currentExtinguisher != null);
+        _typeSprite.gameObject.SetActive(_currentExtinguisher != null);
         if (_currentExtinguisher != null)
         {
             _extinguisherPosition.material = _currentExtinguisher.Definition.Material;
+            _typeSprite.sprite = _currentExtinguisher.Definition.Icon;
         }
     }
 }

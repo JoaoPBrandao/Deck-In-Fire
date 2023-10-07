@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _compatibleExtinguishers:
   - {fileID: 11400000, guid: 5af973bc30a7c0647b350bc5278b1e25, type: 2}
+  - {fileID: 11400000, guid: 145bdcf0056f3724db4cced64adae2df, type: 2}
