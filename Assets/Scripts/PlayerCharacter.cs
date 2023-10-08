@@ -12,13 +12,13 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private float _extinguisherRadius = 1;
     [SerializeField] private float _extinguisherRange = 3;
     [SerializeField] private MeshRenderer _extinguisherPosition;
-    [SerializeField] private GameObject _extinguisherTarget;
+    [SerializeField] private GameObject _extinguisherTarget, _audioListener;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
     private Camera _camera;
     private Plane _mousePlane;
     private IInteractable _interactionTarget;
-    public UnityEvent<ExtinguisherInstance> OnExtinguisherChanged;
+    public UnityEvent<ExtinguisherInstance> OnExtinguisherChanged, OnExtinguisherUsed;
     public UnityEvent OnBeginInteract, OnEndInteract;
 
     private void OnEnable()
@@ -43,7 +43,7 @@ public class PlayerCharacter : MonoBehaviour
             z = Input.GetAxis("Vertical")
         };
         movementVector.Normalize();
-        _controller.Move(movementVector * _speed);
+        _controller.Move(movementVector * (_speed * Time.deltaTime));
     }
     
     private void ProcessMousePosition()
@@ -55,6 +55,7 @@ public class PlayerCharacter : MonoBehaviour
             var point = ray.GetPoint(distance);
             var dir = (point - transform.position).normalized;
             transform.forward = dir;
+            _audioListener.transform.rotation = Quaternion.identity;
             var mouseDistance = Mathf.Min((point - transform.position).magnitude, _extinguisherRange);
             if (Physics.Raycast(transform.position, dir, out var hit, mouseDistance, LayerMask.GetMask("Wall")))
             {
@@ -93,7 +94,7 @@ public class PlayerCharacter : MonoBehaviour
             }
             else
             {
-                OnExtinguisherChanged.Invoke(_currentExtinguisher);
+                OnExtinguisherUsed.Invoke(_currentExtinguisher);
             }
         }
     }

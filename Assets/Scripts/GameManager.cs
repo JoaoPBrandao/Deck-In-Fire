@@ -3,14 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public UnityEvent OnGameUpdated;
+    public UnityEvent<bool> OnMatchFinished;
     [SerializeField] private List<LevelFireTargetDefinition> _levelFireTargets;
     [SerializeField] private Vector2 _fireInterval;
-    [SerializeField] private int _levelTarget, _levelMisses;
+    [SerializeField] private int _levelTarget, _levelMisses, _score;
+
+    public int Score => _score;
+    public int RemainingTargets => _remainingTargets;
+    public int RemainingMisses => _remainingMisses;
+    public int LevelTarget => _levelTarget;
+    public int LevelMisses => _levelMisses;
 
     private int _remainingMisses, _remainingTargets;
     private float _nextFireTime;
@@ -31,7 +40,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _remainingMisses = _levelMisses;
-        _remainingTargets = _levelTarget;
+        _remainingTargets = 0;
         _nextFireTime = Random.Range(_fireInterval.x, _fireInterval.y);
     }
 
@@ -87,21 +96,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnObjectExtinguished()
+    private void OnObjectExtinguished(FireObject targetObject)
     {
-        _remainingTargets--;
-        if (_remainingTargets <= 0)
+        if (!enabled) return;
+        _remainingTargets++;
+        _score += (int)targetObject.RemainingTime;
+        OnGameUpdated.Invoke();
+        if (_remainingTargets >= _levelTarget)
         {
-            Debug.Log("Won");
+            enabled = false;
+            OnMatchFinished.Invoke(true);
         }
     }
 
-    private void OnObjectDestroyed()
+    private void OnObjectDestroyed(FireObject targetObject)
     {
+        if (!enabled) return;
         _remainingMisses--;
+        OnGameUpdated.Invoke();
         if (_remainingMisses <= 0)
         {
-            Debug.Log("Lost");
+            enabled = false;
+            OnMatchFinished.Invoke(false);
         }
     }
 
