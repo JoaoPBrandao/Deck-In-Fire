@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<LevelFireTargetDefinition> _levelFireTargets;
     [SerializeField] private Vector2 _fireInterval;
     [SerializeField] private int _levelTarget, _levelMisses, _score;
+    [SerializeField] private bool _startEnabled;
 
     public int Score => _score;
     public int RemainingTargets => _remainingTargets;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         _remainingMisses = _levelMisses;
         _remainingTargets = 0;
         _nextFireTime = Random.Range(_fireInterval.x, _fireInterval.y);
+        enabled = _startEnabled;
     }
 
     private void Update()
@@ -119,6 +121,11 @@ public class GameManager : MonoBehaviour
             enabled = false;
             OnMatchFinished.Invoke(false);
         }
+    }
+
+    public void StartGame()
+    {
+        enabled = true;
     }
 
     [Serializable]

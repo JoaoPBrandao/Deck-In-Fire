@@ -11,12 +11,15 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private float _speed = 1;
     [SerializeField] private float _extinguisherRadius = 1;
     [SerializeField] private float _extinguisherRange = 3;
+    [SerializeField] private float _extinguisherUseAnimationTime = 1;
     [SerializeField] private MeshRenderer _extinguisherPosition;
     [SerializeField] private GameObject _extinguisherTarget, _audioListener;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
     private Camera _camera;
     private Plane _mousePlane;
+    private float _currentExtinguisherUseAnimationTime;
+    private bool _usingExtinguisher;
     private IInteractable _interactionTarget;
     public UnityEvent<ExtinguisherInstance> OnExtinguisherChanged, OnExtinguisherUsed;
     public UnityEvent OnBeginInteract, OnEndInteract;
@@ -30,6 +33,12 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
+        if (_usingExtinguisher)
+        {
+            _currentExtinguisherUseAnimationTime -= Time.deltaTime;
+            if (_currentExtinguisherUseAnimationTime > 0) return;
+            OnExtinguisherAnimationEnded();
+        }
         ProcessMovement();
         ProcessMousePosition();
         ProcessInput();
@@ -78,24 +87,27 @@ public class PlayerCharacter : MonoBehaviour
         
         if (Input.GetButtonDown("Fire1") && HasExtinguisher)
         {
+            _usingExtinguisher = true;
+            _currentExtinguisherUseAnimationTime = _extinguisherUseAnimationTime;
             _currentExtinguisher.RemainingUses--;
-            var hits = Physics.OverlapSphere(_extinguisherTarget.transform.position, _extinguisherRadius, LayerMask.GetMask("FireObject"));
-            foreach (var target in hits)
-            {
-                if (target.TryGetComponent<FireObject>(out var fireObject))
-                {
-                    fireObject.Extinguish(_currentExtinguisher.Definition);
-                }
-            }
+            OnExtinguisherUsed.Invoke(_currentExtinguisher);
+        }
+    }
 
-            if (_currentExtinguisher.RemainingUses <= 0)
+    private void OnExtinguisherAnimationEnded()
+    {
+        _usingExtinguisher = false;
+        var hits = Physics.OverlapSphere(_extinguisherTarget.transform.position, _extinguisherRadius, LayerMask.GetMask("FireObject"));
+        foreach (var target in hits)
+        {
+            if (target.TryGetComponent<FireObject>(out var fireObject))
             {
-                SwitchExtinguisher(null);
+                fireObject.Extinguish(_currentExtinguisher.Definition);
             }
-            else
-            {
-                OnExtinguisherUsed.Invoke(_currentExtinguisher);
-            }
+        }
+        if (_currentExtinguisher.RemainingUses <= 0)
+        {
+            SwitchExtinguisher(null);
         }
     }
     
