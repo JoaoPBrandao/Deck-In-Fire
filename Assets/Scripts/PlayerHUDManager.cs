@@ -20,6 +20,7 @@ public class PlayerHUDManager : MonoBehaviour
         
         GameManager.Instance.OnGameUpdated.AddListener(OnGameUpdated);
         GameManager.Instance.OnMatchFinished.AddListener(OnMatchFinished);
+        OnGameUpdated();
     }
 
     private void OnMatchFinished(bool result)

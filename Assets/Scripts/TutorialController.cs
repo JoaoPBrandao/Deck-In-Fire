@@ -10,6 +10,10 @@ public class TutorialController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (var page in _pages)
+        {
+            page.SetActive(false);
+        }
         _pages[_currentPage].SetActive(true);
     }
 
