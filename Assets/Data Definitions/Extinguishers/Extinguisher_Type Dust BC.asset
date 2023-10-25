@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1c68a622d02a949ba9ba0c4189ab05, type: 3}
+  m_Name: Extinguisher_Type Dust BC
+  m_EditorClassIdentifier: 
+  Uses: 5
+  Material: {fileID: 2100000, guid: 5df6d7b4a95465d4f8e614173ae32027, type: 2}
+  Icon: {fileID: 21300000, guid: 9b29f873ecde3a54691c42626830b028, type: 3}
+  Name: "P\xF3 Qu\xEDmico"
+  Description: "P\xF3 Qu\xEDmico"

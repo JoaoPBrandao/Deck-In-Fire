@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc1c68a622d02a949ba9ba0c4189ab05, type: 3}
-  m_Name: Extinguisher_Type Dust
+  m_Name: Extinguisher_Type Dust ABC
   m_EditorClassIdentifier: 
   Uses: 5
   Material: {fileID: 2100000, guid: 5df6d7b4a95465d4f8e614173ae32027, type: 2}

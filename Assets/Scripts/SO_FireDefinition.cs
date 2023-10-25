@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +5,7 @@ using UnityEngine;
 public class SO_FireDefinition : ScriptableObject
 {
     [SerializeField] private List<SO_ExtinguisherDefinition> _compatibleExtinguishers;
+    [field: SerializeField] public Sprite TypeIcon { get; private set; }
 
     public bool Extinguish(SO_ExtinguisherDefinition extinguisher)
     {

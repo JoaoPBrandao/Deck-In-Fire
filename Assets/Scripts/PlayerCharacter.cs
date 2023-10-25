@@ -20,6 +20,7 @@ public class PlayerCharacter : MonoBehaviour
     private Plane _mousePlane;
     private float _currentExtinguisherUseAnimationTime;
     private bool _usingExtinguisher;
+    private List<FireObject> _extinguisherTargets = new List<FireObject>();
     private IInteractable _interactionTarget;
     public UnityEvent<ExtinguisherInstance> OnExtinguisherChanged, OnExtinguisherUsed;
     public UnityEvent OnBeginInteract, OnEndInteract;
@@ -97,13 +98,10 @@ public class PlayerCharacter : MonoBehaviour
     private void OnExtinguisherAnimationEnded()
     {
         _usingExtinguisher = false;
-        var hits = Physics.OverlapSphere(_extinguisherTarget.transform.position, _extinguisherRadius, LayerMask.GetMask("FireObject"));
-        foreach (var target in hits)
+        //var hits = Physics.OverlapSphere(_extinguisherTarget.transform.position, _extinguisherRadius, LayerMask.GetMask("FireObject"));
+        foreach (var target in _extinguisherTargets)
         {
-            if (target.TryGetComponent<FireObject>(out var fireObject))
-            {
-                fireObject.Extinguish(_currentExtinguisher.Definition);
-            }
+            target.Extinguish(_currentExtinguisher.Definition);
         }
         if (_currentExtinguisher.RemainingUses <= 0)
         {
@@ -119,6 +117,13 @@ public class PlayerCharacter : MonoBehaviour
             interactable.OnStartBeingTarget(this);
             _interactionTarget = interactable;
             OnBeginInteract.Invoke();
+            return;
+        }
+
+        if (other.TryGetComponent<FireObject>(out var fireObject))
+        {
+            _extinguisherTargets.Add(fireObject);
+            fireObject.OnBeginTargeted();
         }
     }
 
@@ -129,6 +134,13 @@ public class PlayerCharacter : MonoBehaviour
             interactable.OnStopBeingTarget(this);
             _interactionTarget = null;
             OnEndInteract.Invoke();
+            return;
+        }
+        
+        if (other.TryGetComponent<FireObject>(out var fireObject))
+        {
+            _extinguisherTargets.Remove(fireObject);
+            fireObject.OnEndTargeted();
         }
     }
 
@@ -150,4 +162,6 @@ public class PlayerCharacter : MonoBehaviour
             _extinguisherPosition.material = _currentExtinguisher.Definition.Material;
         }
     }
+    
+    
 }

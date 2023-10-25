@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 0.82
       objectReference: {fileID: 0}
+    - target: {fileID: 5932710544738063209, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.954
+      objectReference: {fileID: 0}
     - target: {fileID: 7319114305509388240, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       propertyPath: _fireDefinition
       value: 

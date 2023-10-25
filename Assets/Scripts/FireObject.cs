@@ -8,16 +8,24 @@ public class FireObject : MonoBehaviour
 {
     [SerializeField] private SO_FireDefinition _fireDefinition;
     [SerializeField] public UnityEvent<FireObject> _OnSetOnFire, _OnExtinguish, _OnDestroyed;
+    [SerializeField] private SpriteRenderer _TypeSprite;
     public SO_FireDefinition FireDefinition => _fireDefinition;
     public float RemainingTime => _remainingTime;
     private bool _onFire;
     private bool _destroyed;
+    private bool _beingTargeted;
     private float _remainingTime;
 
 
     private void Start()
     {
         GameManager.Instance.AddFireObject(this);
+        _TypeSprite.sprite = _fireDefinition.TypeIcon;
+        _TypeSprite.gameObject.SetActive(false);
+        // var rotation = Camera.main.transform.eulerAngles;
+        // rotation.x = 0;
+        // rotation.z = 0;
+        _TypeSprite.transform.forward = Camera.main.transform.forward;
         enabled = false;
     }
 
@@ -51,6 +59,7 @@ public class FireObject : MonoBehaviour
         _OnSetOnFire.Invoke(this);
         enabled = true;
         GameManager.Instance.RemoveFireObject(this);
+        if(_beingTargeted) _TypeSprite.gameObject.SetActive(true);
     }
 
     private void DestroyFireObject()
@@ -59,6 +68,7 @@ public class FireObject : MonoBehaviour
         _onFire = false;
         enabled = false;
         _OnDestroyed.Invoke(this);
+        _TypeSprite.gameObject.SetActive(false);
     }
     
     private void Extinguish()
@@ -67,7 +77,20 @@ public class FireObject : MonoBehaviour
         _onFire = false;
         enabled = false;
         _OnExtinguish.Invoke(this);
+        _TypeSprite.gameObject.SetActive(false);
         GameManager.Instance.AddFireObject(this);
     }
-    
+
+    public void OnBeginTargeted()
+    {
+        _beingTargeted = true;
+        if (!_onFire) return;
+        _TypeSprite.gameObject.SetActive(true);
+    }
+
+    public void OnEndTargeted()
+    {
+        _beingTargeted = false;
+        _TypeSprite.gameObject.SetActive(false);
+    }
 }
