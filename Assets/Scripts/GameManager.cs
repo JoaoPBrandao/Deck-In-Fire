@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Vector2 _fireInterval;
     [SerializeField] private int _levelTarget, _levelMisses, _fireAmount;
     [SerializeField] private bool _startEnabled;
+    [SerializeField] private bool _firstLevel;
 
     public int Score => _score;
     public int TotalScore => _totalScore;
@@ -36,6 +37,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+
+        if (_firstLevel)
+        {
+            _totalScore = 0;
         }
 
         _remainingMisses = _levelMisses;
@@ -115,6 +121,7 @@ public class GameManager : MonoBehaviour
         if (_remainingTargets >= _levelTarget)
         {
             enabled = false;
+            _totalScore += _score;
             OnMatchFinished.Invoke(true);
         }
     }
