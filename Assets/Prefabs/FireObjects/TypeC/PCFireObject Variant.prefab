@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.954
       objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.789
+      objectReference: {fileID: 0}
     - target: {fileID: 7319114305509388240, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       propertyPath: _fireDefinition
       value: 
@@ -68,17 +72,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: PCFireObject Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.789
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
-      insertIndex: 0
+    - targetCorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8336929751269332225}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
---- !u!4 &4916654368557127580 stripped
+--- !u!4 &6568335166066969862 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
   m_PrefabInstance: {fileID: 2425681770745018447}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8339809101858043199
@@ -87,7 +99,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4916654368557127580}
+    m_TransformParent: {fileID: 6568335166066969862}
     m_Modifications:
     - target: {fileID: 1152768899851928, guid: f92a252e273fcb349b88813895ab0264, type: 3}
       propertyPath: m_Name

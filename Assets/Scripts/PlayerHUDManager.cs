@@ -3,12 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.Serialization;
 
 public class PlayerHUDManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _interactionText, _victoryOverlay, _defeatOverlay;
+    [Header("Match progress")] [SerializeField]
+    private GameObject _playerHUD;
+    [SerializeField] private TMP_Text _livesText, _firesText, _progressText;
+
+    [Header("Interaction")] [SerializeField]
+    private GameObject _interactionText;
+    
+    [Header("Extinguisher Info")]
     [SerializeField] private Image _extinguisherImage;
-    [SerializeField] private TMP_Text _extinguisherQuantityText, _scoreText, _progressText, _livesText;
+    [SerializeField] private Image _extinguisherQuantityBar;
+    
+    [Header("Match ending")]
+    [SerializeField] private ResultScreen _resultScreen;
+
     private PlayerCharacter _player;
     void Start()
     {
@@ -21,24 +34,19 @@ public class PlayerHUDManager : MonoBehaviour
         GameManager.Instance.OnGameUpdated.AddListener(OnGameUpdated);
         GameManager.Instance.OnMatchFinished.AddListener(OnMatchFinished);
         OnGameUpdated();
+        OnExtinguisherChanged(null);
     }
 
     private void OnMatchFinished(bool result)
     {
-        if (result)
-        {
-            _victoryOverlay.SetActive(true);
-        }
-        else
-        {
-            _defeatOverlay.SetActive(true);
-        }
+        _playerHUD.SetActive(false);
+        _resultScreen.SetupScreen(result);
     }
 
     private void OnGameUpdated()
     {
         var manager = GameManager.Instance;
-        _scoreText.text = manager.Score.ToString();
+        _firesText.text = $"X {manager.FireAmount}";
         _progressText.text = $"{manager.RemainingTargets}/{manager.LevelTarget}";
         _livesText.text = $"{manager.RemainingMisses}/{manager.LevelMisses}";
     }
@@ -47,13 +55,13 @@ public class PlayerHUDManager : MonoBehaviour
     {
         if (extinguisher == null)
         {
-            _extinguisherImage.sprite = null;
-            _extinguisherQuantityText.gameObject.SetActive(false);
+            _extinguisherQuantityBar.fillAmount = 0;
+            _extinguisherImage.gameObject.SetActive(false);
             return;
         }
-        _extinguisherQuantityText.gameObject.SetActive(true);
+        _extinguisherImage.gameObject.SetActive(true);
         _extinguisherImage.sprite = extinguisher.Definition.Icon;
-        _extinguisherQuantityText.text = $"{extinguisher.RemainingUses}/{extinguisher.Definition.Uses}";
+        _extinguisherQuantityBar.fillAmount = (float)extinguisher.RemainingUses/extinguisher.Definition.Uses;
     }
 
     private void OnBeginInteract()

@@ -34,6 +34,7 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.enabled) return;
         if (_usingExtinguisher)
         {
             _currentExtinguisherUseAnimationTime -= Time.deltaTime;
@@ -64,7 +65,8 @@ public class PlayerCharacter : MonoBehaviour
         {
             var point = ray.GetPoint(distance);
             var dir = (point - transform.position).normalized;
-            transform.forward = dir;
+            dir.y = 0;
+            transform.rotation = Quaternion.LookRotation(dir);
             _audioListener.transform.rotation = Quaternion.identity;
             var mouseDistance = Mathf.Min((point - transform.position).magnitude, _extinguisherRange);
             if (Physics.Raycast(transform.position, dir, out var hit, mouseDistance, LayerMask.GetMask("Wall")))

@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6105865675881410535}
+    m_TransformParent: {fileID: 5449489046687577469}
     m_Modifications:
     - target: {fileID: 1219545607048900, guid: 390b7f13f064f5745b7c4ac57b227424, type: 3}
       propertyPath: m_Name
@@ -86,6 +86,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.69
       objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.074
+      objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.157
+      objectReference: {fileID: 0}
     - target: {fileID: 7319114305509388240, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       propertyPath: _fireDefinition
       value: 
@@ -134,16 +142,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaptopFireObject Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.074
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.157
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       insertIndex: -1
       addedObject: {fileID: 413360368083148634}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
---- !u!4 &6105865675881410535 stripped
+--- !u!4 &5449489046687577469 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
   m_PrefabInstance: {fileID: 3544002872250499124}
   m_PrefabAsset: {fileID: 0}

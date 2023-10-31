@@ -15,5 +15,4 @@ MonoBehaviour:
   _compatibleExtinguishers:
   - {fileID: 11400000, guid: ff42b50f8b89dd5428d747e72e3c76d5, type: 2}
   - {fileID: 11400000, guid: 145bdcf0056f3724db4cced64adae2df, type: 2}
-  - {fileID: 11400000, guid: 5af973bc30a7c0647b350bc5278b1e25, type: 2}
-  <TypeIcon>k__BackingField: {fileID: 21300000, guid: 9d9f72f7cd0d6e04c90ee7340d6a3e42, type: 3}
+  <TypeIcon>k__BackingField: {fileID: 21300000, guid: 99c761831a8b6564ca12cae0787ab972, type: 3}

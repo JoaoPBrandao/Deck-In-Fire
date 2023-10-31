@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.11
       objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 7319114305509388240, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       propertyPath: _fireDefinition
       value: 
@@ -88,17 +92,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: BinFireObject Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.684
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5959452490034797412}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
---- !u!4 &6786432029028870033 stripped
+--- !u!4 &4697855742680628491 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
   m_PrefabInstance: {fileID: 4304465254672533570}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5955105982345661620
@@ -107,7 +119,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6786432029028870033}
+    m_TransformParent: {fileID: 4697855742680628491}
     m_Modifications:
     - target: {fileID: 1683499507197182, guid: cb8df2c98f82f2348957686081199aa6, type: 3}
       propertyPath: m_Name

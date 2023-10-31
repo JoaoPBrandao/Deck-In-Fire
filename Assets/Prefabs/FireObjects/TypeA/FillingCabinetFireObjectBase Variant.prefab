@@ -6,7 +6,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2376214292376494257}
+    m_TransformParent: {fileID: 4604402157978270251}
     m_Modifications:
     - target: {fileID: 1143891519313324, guid: eb55cfc53f8a91b42b7c4e471bb2b538, type: 3}
       propertyPath: m_Layer
@@ -126,6 +126,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3.03
       objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 6026370701711697442, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.77
+      objectReference: {fileID: 0}
     - target: {fileID: 7319114305509388240, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       propertyPath: _fireDefinition
       value: 
@@ -174,16 +186,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: FillingCabinetFireObjectBase Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319114305875766539, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.77
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2294417704201903225}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
---- !u!4 &2376214292376494257 stripped
+--- !u!4 &4604402157978270251 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7319114305509388243, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8831183658921850185, guid: 0304eb4869bf645478bd12440dc47200, type: 3}
   m_PrefabInstance: {fileID: 5001447366802493282}
   m_PrefabAsset: {fileID: 0}

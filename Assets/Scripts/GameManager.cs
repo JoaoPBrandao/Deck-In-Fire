@@ -13,17 +13,20 @@ public class GameManager : MonoBehaviour
     public UnityEvent<bool> OnMatchFinished;
     [SerializeField] private List<LevelFireTargetDefinition> _levelFireTargets;
     [SerializeField] private Vector2 _fireInterval;
-    [SerializeField] private int _levelTarget, _levelMisses, _score;
+    [SerializeField] private int _levelTarget, _levelMisses, _fireAmount;
     [SerializeField] private bool _startEnabled;
 
     public int Score => _score;
+    public int TotalScore => _totalScore;
     public int RemainingTargets => _remainingTargets;
     public int RemainingMisses => _remainingMisses;
     public int LevelTarget => _levelTarget;
     public int LevelMisses => _levelMisses;
+    public int FireAmount => _fireAmount;
 
-    private int _remainingMisses, _remainingTargets;
+    private int _remainingMisses, _remainingTargets, _score;
     private float _nextFireTime;
+    private static int _totalScore;
     
     private Dictionary<SO_FireDefinition, List<FireObject>> _objectsByDefinition = new Dictionary<SO_FireDefinition, List<FireObject>>();
 
@@ -35,6 +38,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        _remainingMisses = _levelMisses;
+        _remainingTargets = 0;
         Instance = this;
     }
 
@@ -74,6 +79,8 @@ public class GameManager : MonoBehaviour
                 return;
             }
             objectsList.GetRandom().SetOnFire();
+            _fireAmount++;
+            OnGameUpdated.Invoke();
         }
     }
 
@@ -103,6 +110,7 @@ public class GameManager : MonoBehaviour
         if (!enabled) return;
         _remainingTargets++;
         _score += (int)targetObject.RemainingTime;
+        _fireAmount--;
         OnGameUpdated.Invoke();
         if (_remainingTargets >= _levelTarget)
         {
@@ -115,6 +123,7 @@ public class GameManager : MonoBehaviour
     {
         if (!enabled) return;
         _remainingMisses--;
+        _fireAmount--;
         OnGameUpdated.Invoke();
         if (_remainingMisses <= 0)
         {
@@ -127,7 +136,7 @@ public class GameManager : MonoBehaviour
     {
         enabled = true;
     }
-
+    
     [Serializable]
     private class LevelFireTargetDefinition
     {

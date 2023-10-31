@@ -7,14 +7,20 @@ public class TutorialController : MonoBehaviour
     [SerializeField] private GameObject[] _pages;
 
     private int _currentPage = 0;
-    // Start is called before the first frame update
-    void Start()
+
+    public void OpenTutorial()
     {
+        _currentPage = 0;
+        gameObject.SetActive(true);
         foreach (var page in _pages)
         {
             page.SetActive(false);
         }
         _pages[_currentPage].SetActive(true);
+    }
+    void Start()
+    {
+        OpenTutorial();
     }
 
     public void AdvancePage()
@@ -24,7 +30,7 @@ public class TutorialController : MonoBehaviour
         if (_currentPage >= _pages.Length)
         {
             gameObject.SetActive(false);
-            GameManager.Instance.StartGame();
+            GameManager.Instance?.StartGame();
             return;
         }
         _pages[_currentPage].SetActive(true);
