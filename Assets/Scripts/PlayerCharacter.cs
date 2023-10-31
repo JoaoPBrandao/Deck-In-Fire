@@ -14,6 +14,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private float _extinguisherUseAnimationTime = 1;
     [SerializeField] private MeshRenderer _extinguisherPosition;
     [SerializeField] private GameObject _extinguisherTarget, _audioListener;
+    [SerializeField] private Animator _animator;
     public bool HasExtinguisher => _currentExtinguisher != null;
     private ExtinguisherInstance _currentExtinguisher;
     private Camera _camera;
@@ -24,6 +25,9 @@ public class PlayerCharacter : MonoBehaviour
     private IInteractable _interactionTarget;
     public UnityEvent<ExtinguisherInstance> OnExtinguisherChanged, OnExtinguisherUsed;
     public UnityEvent OnBeginInteract, OnEndInteract;
+    private static readonly int UsingExtinguisher = Animator.StringToHash("UsingExtinguisher");
+    private static readonly int MovementX = Animator.StringToHash("MovementX");
+    private static readonly int MovementZ = Animator.StringToHash("MovementZ");
 
     private void OnEnable()
     {
@@ -41,8 +45,9 @@ public class PlayerCharacter : MonoBehaviour
             if (_currentExtinguisherUseAnimationTime > 0) return;
             OnExtinguisherAnimationEnded();
         }
-        ProcessMovement();
+        
         ProcessMousePosition();
+        ProcessMovement();
         ProcessInput();
     }
 
@@ -55,6 +60,10 @@ public class PlayerCharacter : MonoBehaviour
         };
         movementVector.Normalize();
         _controller.Move(movementVector * (_speed * Time.deltaTime));
+        var animationDir = transform.InverseTransformDirection(movementVector);
+        _animator.SetFloat(MovementX, animationDir.x);
+        _animator.SetFloat(MovementZ, animationDir.z);
+
     }
     
     private void ProcessMousePosition()
@@ -91,6 +100,7 @@ public class PlayerCharacter : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && HasExtinguisher)
         {
             _usingExtinguisher = true;
+            _animator.SetBool(UsingExtinguisher, true);
             _currentExtinguisherUseAnimationTime = _extinguisherUseAnimationTime;
             _currentExtinguisher.RemainingUses--;
             OnExtinguisherUsed.Invoke(_currentExtinguisher);
@@ -100,6 +110,7 @@ public class PlayerCharacter : MonoBehaviour
     private void OnExtinguisherAnimationEnded()
     {
         _usingExtinguisher = false;
+        _animator.SetBool(UsingExtinguisher, false);
         //var hits = Physics.OverlapSphere(_extinguisherTarget.transform.position, _extinguisherRadius, LayerMask.GetMask("FireObject"));
         foreach (var target in _extinguisherTargets)
         {
