@@ -22,9 +22,6 @@ public class FireObject : MonoBehaviour
         GameManager.Instance.AddFireObject(this);
         _TypeSprite.sprite = _fireDefinition.TypeIcon;
         _TypeSprite.gameObject.SetActive(false);
-        // var rotation = Camera.main.transform.eulerAngles;
-        // rotation.x = 0;
-        // rotation.z = 0;
         _TypeSprite.transform.forward = Camera.main.transform.forward;
         enabled = false;
     }

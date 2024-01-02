@@ -9,7 +9,6 @@ public class SO_ExtinguisherDefinition : ScriptableObject
     public Material Material;
     public Sprite Icon;
     public string Name;
-    public string Description;
 
     public ExtinguisherInstance CreateInstance()
     {
